@@ -1,0 +1,71 @@
+﻿@model CRUDEjemplo.Models.ViewModels
+
+@{
+    ViewData["Title"] = "Editar Producto";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <h3>Editar Nuevo Producto</h3>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-sm-10">
+            <form method="post" asp-action="Edit">
+                <input asp-for="Producto.Id" type="hidden" />
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Producto.Codigo" class="control-label"></label>
+                    <input asp-for="Producto.Codigo" class="form-control" />
+                    <span asp-validation-for="Producto.Codigo" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Producto.Nombre" class="control-label"></label>
+                    <input asp-for="Producto.Nombre" class="form-control" />
+                    <span asp-validation-for="Producto.Nombre" class="text-danger"></span>
+                </div>
+                <input asp-for="Producto.CreatedAt" type="hidden" />
+
+                <div class="form-group">
+                    <label asp-for="Producto.IdCategoria" class="control-label"></label>
+                    <select class="form-control" asp-for="Producto.IdCategoria">
+                        @if (Model.Categorias.Count() > 0)
+                        {
+                            foreach (var item in Model.Categorias)
+                            {
+                                <option class="form-control" value="@item.Id">@item.Nombre</option>
+                            }
+                        }
+
+
+                    </select>
+                    <span asp-validation-for="Producto.IdCategoria" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Producto.Precio" class="control-label"></label>
+                    <input asp-for="Producto.Precio" class="form-control" />
+                    <span asp-validation-for="Producto.Precio" class="text-danger"></span>
+
+                </div>
+
+                <div class="form-group">
+
+                    <input type="submit" value="Modificar Producto" class="btn btn-primary" />
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+</div>
+@section Scripts
+{
+    @{
+        <partial name="_ValidationScriptsPartial.cshtml" />
+    }}
+

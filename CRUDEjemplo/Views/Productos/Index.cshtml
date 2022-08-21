@@ -1,0 +1,115 @@
+﻿
+@model CRUDEjemplo.Models.ViewModels2
+
+@{
+    ViewData["Title"] = "Lista de Productos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    @if (TempData["mensaje"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show">
+            @TempData["mensaje"]
+
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+    }
+    <div class="row">
+        <div class="col-sm-6">
+            <h3>Lista de Productos</h3>
+        </div>
+        <div class="col-sm-6">
+            <a class="btn btn-success d-block" asp-action="Create" asp-controller="Productos">Agregar Nuevo Producto</a>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        @if (Model.Productos.Count() > 0)
+        {
+            <table class="table table-bordered table-striped">
+                <thead class="">
+                    <tr>
+                        <td>
+                            Id
+                        </td>
+                        <td>
+                            Codigo
+                        </td>
+                        <td>
+                            Nombre
+                        </td>
+                        <td>
+                            Categoria
+                        </td>
+                        <td>
+                            Precio
+                        </td>
+                        <td>
+                           Fecha de Creacion
+                        </td>
+                        <td>
+                            Fecha de actualizacion
+                        </td>
+
+                        <td>
+                            Acciones
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Productos)
+                    {
+                    <tr>
+                        <td>
+                            @item.Id
+                        </td>
+                        <td>
+                            @item.Codigo
+                        </td>
+                        <td>
+                            @item.Nombre
+                        </td>
+                        <td>
+                            @foreach (var item2 in Model.Categorias)
+                            {
+                                if (item.IdCategoria == item2.Id) 
+                                {
+                                    @item2.Nombre
+                                }
+                            }
+                            
+                        </td>
+                        <td>
+                            @item.Precio
+                        </td>
+                        <td>
+                            @item.CreatedAt
+                        </td>
+                        <td>
+                            @item.UpdateAt
+                        </td>
+
+                        <td>
+
+
+
+                            <a asp-controller="Productos" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">Editar</a>
+                            <a asp-controller="Productos" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Eliminar</a>
+                        </td>
+
+                    </tr>
+                    }
+
+                </tbody>
+            </table>
+        }
+        else
+        {
+
+
+            <p>No existen registros</p>
+        }
+    </div>
+</div>
+
